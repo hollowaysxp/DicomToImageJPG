@@ -32,7 +32,7 @@ namespace DicomToJPG1
 
             combostatic = comboBox1.Text;
             text1static = textBox1.Text;
-            label3.Text = "轉檔中...";
+            label3.Text = "Converting...";
             fileCount = 0;
            
             Thread outputThread = new Thread(new ThreadStart(DcmToImage));
@@ -51,16 +51,10 @@ namespace DicomToJPG1
         {
             if (text1static != "")
             {
-                //outputString = "";
-                //outputStrbuilder.Clear();
-
+               
                 List<string> lstr = DirSearch(text1static);
 
-                //MessageBox.Show("all:" +fileCount.ToString());
-                //label3.Text = "找到檔案總共:" + fileCount;
-                //progressBar1.Maximum = fileCount;
-                //timer1.Enabled = true;
-                //label3.Text = "找到檔案總共:" + fileCount + "\n" + "輸出CSV中...";
+              
 
                 if (!Directory.Exists(text1static + @"\Output")) {
                     Directory.CreateDirectory(text1static + @"\Output");
@@ -101,12 +95,12 @@ namespace DicomToJPG1
                     
                 }
                 //MessageBox.Show("轉檔完成");
-                ChangeLb(label3,"轉檔完成");
+                ChangeLb(label3, "Convert Completed");
                 System.Diagnostics.Process.Start("explorer.exe", "\""+ text1static + @"\Output"+"\""); 
             }
             else
             {
-                MessageBox.Show("輸入資料夾不能為空的");
+                MessageBox.Show("Import Folder can not be empty.");
             }
         }
 
@@ -154,38 +148,6 @@ namespace DicomToJPG1
 
             return files;
         }
-
-     
-
-
-        /*
-        private void saveJpeg(string path, Bitmap img, long quality)
-        {
-            // Encoder parameter for image quality
-            EncoderParameter qualityParam = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, quality);
-
-            // Jpeg image codec
-            ImageCodecInfo jpegCodec = this.getEncoderInfo("image /jpeg");
-            if (jpegCodec == null)
-                return;
-
-            EncoderParameters encoderParams = new EncoderParameters(1);
-            encoderParams.Param[0] = qualityParam;
-            MessageBox.Show("save");
-            img.Save(path, jpegCodec, encoderParams);
-        }
-
-        private ImageCodecInfo getEncoderInfo(string mimeType)
-        {
-            // Get image codecs for all image formats
-            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
-
-            // Find the correct image codec
-            for (int i = 0; i < codecs.Length; i++)
-                if (codecs[i].MimeType == mimeType)
-                    return codecs[i];
-            return null;
-        }
-        */
+    
     }
 }
